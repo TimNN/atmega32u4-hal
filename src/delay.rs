@@ -64,17 +64,10 @@ fn busy_loop(mut us: u16) {
 }
 
 // Building for anything but avr should fail ...
-#[cfg(not(any(target_arch = "avr", feature = "docs")))]
+#[cfg(not(target_arch = "avr"))]
 fn busy_loop(_us: u16) {
-    sorry!(This library is made for avr and cannot be compiled for anything else!)
 }
 
-// ... unless we are building docs
-#[cfg(feature = "docs")]
-fn busy_loop(_us: u16) {
-    // Empty implementation when building documentation
-    unimplemented!("This library is made for avr and cannot be used for anything else!")
-}
 
 impl delay::DelayUs<u16> for Delay<MHz24> {
     fn delay_us(&mut self, mut us: u16) {
